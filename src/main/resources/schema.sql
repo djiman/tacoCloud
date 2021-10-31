@@ -18,8 +18,8 @@ alter table Taco_Ingredients
     add foreign key (ingredient) references Ingredient(id);
 create table if not exists Taco_Order (
   id identity,
-    deliveryName varchar(50) not null,
-    deliveryStreet varchar(50) not null,
+    deliveryName varchar(50) null,
+    deliveryStreet varchar(50) null,
     deliveryCity varchar(50) not null,
     deliveryState varchar(2) not null,
     deliveryZip varchar(10) not null,
