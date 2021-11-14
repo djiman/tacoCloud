@@ -1,5 +1,6 @@
 package com.djiman.tacoCloud.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
@@ -7,12 +8,20 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class Order {
+@Entity
+@Table(name="Taco_Order")
+public class Order implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     @NotBlank(message="Delivery name is required")
     private String deliveryName;
     @NotBlank(message="Street is required")
@@ -29,10 +38,14 @@ public class Order {
     private String ccExpiration;
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
-    private Long id;
     private Date placedAt;
+    @ManyToMany(targetEntity=Taco.class)
     private List<Taco> tacos = new ArrayList<>();
     public void addDesign(Taco design) {
         this.tacos.add(design);
+    }
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
     }
 }

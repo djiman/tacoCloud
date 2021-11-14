@@ -1,3 +1,4 @@
+/*
 package com.djiman.tacoCloud.data.impl;
 
 import com.djiman.tacoCloud.data.IngredientRepository;
@@ -47,3 +48,4 @@ public class JdbcIngredientRepository implements IngredientRepository {
         return ingredient;
     }
 }
+*/
